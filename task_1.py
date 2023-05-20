@@ -22,10 +22,4 @@ unicode_list = [unicode_1, unicode_2, unicode_3]
 for unicode in unicode_list:
     print(unicode, type(unicode))
 
-
-'''
-2. Каждое из слов «class», «function», «method» записать в байтовом типе без преобразования в последовательность кодов
- (не используя методы encode и decode) и определить тип, содержимое и длину соответствующих переменных.
- '''
-
  

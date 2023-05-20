@@ -17,6 +17,3 @@ with open('test_file.txt', 'rb') as fb:
 
 with open('test_file.txt', 'r', encoding=unicode_format['encoding']) as fr:
     print(fr.read())
-
-
-

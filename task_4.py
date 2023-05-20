@@ -10,3 +10,4 @@ print(lst_bytes)
 
 for byte in lst_bytes:
     print(byte.decode('utf-8'))
+    
