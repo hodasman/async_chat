@@ -1,0 +1,32 @@
+{
+    "orders": [
+        {
+            "buyer": "Ivanov A. A.",
+            "date": "21.05.2023",
+            "item": "apples",
+            "price": "1.99",
+            "quantity": "5"
+        },
+        {
+            "buyer": "Smirnov A. A.",
+            "date": "21.05.2023",
+            "item": "pineapple",
+            "price": "3.99",
+            "quantity": "1"
+        },
+        {
+            "buyer": "Латушко П.В.",
+            "date": "21.05.2023",
+            "item": "Груши",
+            "price": "1.99",
+            "quantity": "8"
+        },
+        {
+            "buyer": "Цепкало А. В.",
+            "date": "21.05.2023",
+            "item": "Бананы",
+            "price": "1.40",
+            "quantity": "4"
+        }
+    ]
+}
