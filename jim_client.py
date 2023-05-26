@@ -2,6 +2,9 @@ from socket import *
 import sys
 import json
 import time
+from func import send_msg
+from conf import DEFAULT_IP_ADDRESS, DEFAULT_PORT
+
 
 def create_presence(account_name="Guest"):
     presence_msg = {
@@ -17,18 +20,39 @@ def create_presence(account_name="Guest"):
     return json.dumps(presence_msg)
 
 
-def send_msg(s:socket, msg:str):
-    msg_bytes = msg.encode('utf-8')
-    s.send(msg_bytes)
+def handler_server_msg(data:bytes):
+    input = json.loads(data.decode('utf-8'))
+    if input['response']:
+        if input['response'] == 200:
+            return '200:OK'
+        if input['response'] == 400:
+            return f'400: {input["error"]}'
+    raise ValueError
 
 
-server_port = int(sys.argv[2])
-server_ip = sys.argv[1]
+def main():
+    try:
+        server_port = int(sys.argv[2])
+        server_ip = sys.argv[1]
+        if server_port < 1024 or server_port > 65535 or server_port == None:
+            raise ValueError
+    except IndexError:
+        server_ips = DEFAULT_IP_ADDRESS
+        server_port = DEFAULT_PORT
+    except ValueError:
+        print('Значение порта должно быть целым числом от 1024 до 65535')
 
-s = socket(AF_INET, SOCK_STREAM) # Создать сокет TCP
-s.connect((server_ip, server_port)) # Соединиться с сервером
-presence_msg = create_presence()
-send_msg(s, presence_msg)
-data = s.recv(1000000)
-print('Сообщение от сервера: ', data.decode('utf-8'), ', длиной ', len(data), ' байт')
-s.close()
+    s = socket(AF_INET, SOCK_STREAM) # Создать сокет TCP
+    s.connect((server_ip, server_port)) # Соединиться с сервером
+    presence_msg = create_presence()
+    send_msg(s, presence_msg)
+    try:
+        data = s.recv(640)
+        print(handler_server_msg(data))
+        s.close()
+    except (ValueError, json.JSONDecodeError):  
+        print('Принято некорретное сообщение от клиента.')
+        s.close()
+
+if __name__ == '__main__':
+     main()
