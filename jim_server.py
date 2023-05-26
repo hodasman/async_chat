@@ -7,6 +7,11 @@ from conf import DEFAULT_PORT
 
 
 def handler_client_msg(data:bytes):
+    '''
+    Функция обрабатывает сообщения от клиента и выдает ответ в виде словаря
+    :param data:
+    :return:
+    '''
     input = json.loads(data.decode('utf-8'))
     if input["action"] and input["time"] and input["user"] \
           and input["user"]['account_name']:
@@ -21,6 +26,11 @@ def handler_client_msg(data:bytes):
 
 
 def main():
+    '''
+    Функция загружает параметры из командной строки, 
+    если параметров нет задает параметры по умолчанию . Создает сокет
+    и прослушивает указанный адрес.
+    '''
     try:
         if '-p' in sys.argv:
             port = int(sys.argv[sys.argv.index('-p') + 1])
