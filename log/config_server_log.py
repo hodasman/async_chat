@@ -1,10 +1,11 @@
 import logging
 import logging.handlers
+import sys
 
 SERVER_LOGGER = logging.getLogger('server')
 SERVER_FORMATTER = logging.Formatter("%(levelname)-10s %(asctime)s %(filename)s %(message)s")
 
-STREAM_HANDLER = logging.StreamHandler()
+STREAM_HANDLER = logging.StreamHandler(sys.stderr)
 STREAM_HANDLER.setLevel(logging.ERROR)
 STREAM_HANDLER.setFormatter(SERVER_FORMATTER)
 
