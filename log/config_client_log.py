@@ -4,7 +4,7 @@ import sys
 from common.variables import LOGGING_LEVEL
 
 #Создаем форматтер для сообщений
-CLIENT_FORMATTER = logging.Formatter("%(levelname)-10s %(asctime)s %(filename)s %(message)s")
+CLIENT_FORMATTER = logging.Formatter("%(asctime)-25s %(levelname)-10s %(module)s %(message)s")
 
 # Создаем обработчик для вывода сообщений в поток
 STREAM_HANDLER = logging.StreamHandler(sys.stderr)
