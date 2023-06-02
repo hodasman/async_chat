@@ -20,7 +20,7 @@ USER = 'user'
 ACCOUNT_NAME = 'account_name'
 
 # Прочие ключи, используемые в протоколе
-PRESENCE = 'presence'
+PRESENCE = 'presenc'
 RESPONSE = 'response'
 ERROR = 'error'
 

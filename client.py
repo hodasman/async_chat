@@ -59,17 +59,19 @@ def main():
         sys.exit(1)
 
     # Инициализация сокета и обмен
-
-    transport = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    transport.connect((server_address, server_port))
-    message_to_server = create_presence()
-    send_message(transport, message_to_server)
     try:
+        transport = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        transport.connect((server_address, server_port))
+        message_to_server = create_presence()
+        send_message(transport, message_to_server)
+
         answer = process_ans(get_message(transport))
         CLIENT_LOGGER.debug(f'Принят ответ от сервера: {answer}')
         print(answer)
-    except (ValueError, json.JSONDecodeError):
+    except json.JSONDecodeError:
         CLIENT_LOGGER.error(f'Не удалось декодировать сообщение сервера.')
+    except ConnectionRefusedError:
+        CLIENT_LOGGER.error(f'Не удалось подключиться к серверу {server_address}:{server_port}')
 
 
 if __name__ == '__main__':
