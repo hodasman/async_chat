@@ -7,9 +7,12 @@ from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
     PRESENCE, TIME, USER, ERROR, DEFAULT_PORT
 from common.utils import get_message, send_message
 import log.config_server_log
+from decos import log
 
 SERVER_LOGGER = logging.getLogger('server')
 
+
+@log
 def process_client_message(message):
     """
     Обработчик сообщений от клиентов, принимает словарь -

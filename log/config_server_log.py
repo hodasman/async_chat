@@ -2,7 +2,6 @@ import logging
 import logging.handlers
 import os
 import sys
-
 from common.variables import LOGGING_LEVEL
 
 # создаем форматтер
@@ -22,13 +21,13 @@ FILE_HANDLER.setLevel(logging.DEBUG)
 FILE_HANDLER.setFormatter(SERVER_FORMATTER)
 
 # создаем регистратор с именем 'server'
-SERVER_LOGGER = logging.getLogger('server')
-SERVER_LOGGER.addHandler(FILE_HANDLER)
-SERVER_LOGGER.addHandler(STREAM_HANDLER)
-SERVER_LOGGER.setLevel(LOGGING_LEVEL)  # Уровень важности для регистратора задается в файле variables
+LOGGER = logging.getLogger('server')
+LOGGER.addHandler(FILE_HANDLER)
+LOGGER.addHandler(STREAM_HANDLER)
+LOGGER.setLevel(LOGGING_LEVEL)  # Уровень важности для регистратора задается в файле variables
 
 if __name__ == '__main__':
-    SERVER_LOGGER.critical('Критическая ошибка')
-    SERVER_LOGGER.error('Ошибка')
-    SERVER_LOGGER.debug('Отладочная информация')
-    SERVER_LOGGER.info('Информационное сообщение')
+    LOGGER.critical('Критическая ошибка')
+    LOGGER.error('Ошибка')
+    LOGGER.debug('Отладочная информация')
+    LOGGER.info('Информационное сообщение')
