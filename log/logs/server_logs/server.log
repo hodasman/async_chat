@@ -1,17 +1,50 @@
-2023-06-06 21:15:21,432   DEBUG      decos Функция create_presence с аргументами () {} вызвана из функции log
-2023-06-06 21:24:10,166   INFO       server Подключился клиент с адресом ('127.0.0.1', 63442)
-2023-06-06 21:24:10,178   DEBUG      server От клиента получено сообщение {'action': 'presenc', 'time': 1686075850.166069, 'user': {'account_name': 'Guest'}}
-2023-06-06 21:24:10,193   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686075850.166069, 'user': {'account_name': 'Guest'}},) {} вызвана из функции main
-2023-06-06 21:24:10,193   DEBUG      server Ответ сервера {'response': 200}
-2023-06-06 21:29:45,723   INFO       server Подключился клиент с адресом ('127.0.0.1', 63526)
-2023-06-06 21:29:45,737   DEBUG      server От клиента получено сообщение {'action': 'presenc', 'time': 1686076185.722998, 'user': {'account_name': 'Guest'}}
-2023-06-06 21:29:45,737   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686076185.722998, 'user': {'account_name': 'Guest'}},) {} вызвана из функции main
-2023-06-06 21:29:45,737   DEBUG      server Ответ сервера {'response': 200}
-2023-06-06 21:31:22,541   INFO       server Подключился клиент с адресом ('127.0.0.1', 63535)
-2023-06-06 21:31:22,555   DEBUG      server От клиента получено сообщение {'action': 'presenc', 'time': 1686076282.5415108, 'user': {'account_name': 'Guest'}}
-2023-06-06 21:31:22,570   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686076282.5415108, 'user': {'account_name': 'Guest'}},) {} вызвана из функции main
-2023-06-06 21:31:22,570   DEBUG      server Ответ сервера {'response': 200}
-2023-06-06 21:41:47,904   INFO       server Подключился клиент с адресом ('127.0.0.1', 63552)
-2023-06-06 21:41:47,920   DEBUG      server От клиента получено сообщение {'action': 'presenc', 'time': 1686076907.903745, 'user': {'account_name': 'Guest'}}
-2023-06-06 21:41:47,921   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686076907.903745, 'user': {'account_name': 'Guest'}},) {} вызвана из функции main
-2023-06-06 21:41:47,921   DEBUG      server Ответ сервера {'response': 200}
+2023-06-14 11:09:32,656   INFO       server Подключился клиент с адресом ('127.0.0.1', 56442)
+2023-06-14 11:09:33,681   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686730172.656132, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56442)>) {} вызвана из функции main
+2023-06-14 11:14:01,333   INFO       server Подключился клиент с адресом ('127.0.0.1', 56457)
+2023-06-14 11:14:01,334   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686730441.333498, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56457)>) {} вызвана из функции main
+2023-06-14 11:14:02,336   INFO       server Клиент ('127.0.0.1', 56457) отключился от сервера.
+2023-06-14 11:16:14,169   INFO       server Подключился клиент с адресом ('127.0.0.1', 56462)
+2023-06-14 11:16:14,170   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686730574.1691039, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56462)>) {} вызвана из функции main
+2023-06-14 11:16:15,172   INFO       server Клиент ('127.0.0.1', 56462) отключился от сервера.
+2023-06-14 11:17:39,170   INFO       server Подключился клиент с адресом ('127.0.0.1', 56476)
+2023-06-14 11:17:39,171   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686730659.1706839, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56476)>) {} вызвана из функции main
+2023-06-14 11:17:40,173   INFO       server Клиент ('127.0.0.1', 56476) отключился от сервера.
+2023-06-14 11:19:16,484   INFO       server Подключился клиент с адресом ('127.0.0.1', 56477)
+2023-06-14 11:19:16,485   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686730756.4846249, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56477)>) {} вызвана из функции main
+2023-06-14 11:19:17,487   INFO       server Клиент ('127.0.0.1', 56477) отключился от сервера.
+2023-06-14 11:19:23,219   INFO       server Подключился клиент с адресом ('127.0.0.1', 56478)
+2023-06-14 11:19:23,220   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686730763.219475, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56478)>) {} вызвана из функции main
+2023-06-14 11:19:24,221   INFO       server Клиент ('127.0.0.1', 56478) отключился от сервера.
+2023-06-14 11:21:01,622   INFO       server Подключился клиент с адресом ('127.0.0.1', 56481)
+2023-06-14 11:21:01,623   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686730861.6220748, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56481)>) {} вызвана из функции main
+2023-06-14 11:21:02,625   INFO       server Клиент ('127.0.0.1', 56481) отключился от сервера.
+2023-06-14 11:22:01,956   INFO       server Подключился клиент с адресом ('127.0.0.1', 56489)
+2023-06-14 11:22:01,959   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686730921.9560971, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56489)>) {} вызвана из функции main
+2023-06-14 11:22:02,960   INFO       server Клиент ('127.0.0.1', 56489) отключился от сервера.
+2023-06-14 11:25:48,172   INFO       server Клиент ('127.0.0.1', 56442) отключился от сервера.
+2023-06-14 11:25:57,308   INFO       server Подключился клиент с адресом ('127.0.0.1', 56513)
+2023-06-14 11:25:57,310   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686731157.308565, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56513)>) {} вызвана из функции main
+2023-06-14 11:25:58,311   INFO       server Клиент ('127.0.0.1', 56513) отключился от сервера.
+2023-06-14 11:26:03,866   INFO       server Подключился клиент с адресом ('127.0.0.1', 56514)
+2023-06-14 11:26:04,869   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686731163.86681, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56514)>) {} вызвана из функции main
+2023-06-14 11:29:07,876   INFO       server Подключился клиент с адресом ('127.0.0.1', 56518)
+2023-06-14 11:29:08,879   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686731347.876044, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56518)>) {} вызвана из функции main
+2023-06-14 11:29:22,896   DEBUG      server Функция process_client_message с аргументами ({'action': 'msg', 'time': 1686731362.673367, 'account_name': 'Guest', 'message': 'hello'}, [('Guest', 'hello')], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56518)>) {} вызвана из функции main
+2023-06-14 11:33:26,284   INFO       server Подключился клиент с адресом ('127.0.0.1', 56534)
+2023-06-14 11:33:27,302   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686731606.284755, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56534)>) {} вызвана из функции main
+2023-06-14 11:33:40,915   INFO       server Подключился клиент с адресом ('127.0.0.1', 56538)
+2023-06-14 11:33:41,917   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686731620.915621, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56538)>) {} вызвана из функции main
+2023-06-14 11:33:48,925   DEBUG      server Функция process_client_message с аргументами ({'action': 'msg', 'time': 1686731628.2405639, 'account_name': 'Guest', 'message': 'hello'}, [('Guest', 'hello')], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56538)>) {} вызвана из функции main
+2023-06-14 11:34:30,972   DEBUG      server Функция process_client_message с аргументами ({'action': 'msg', 'time': 1686731670.467218, 'account_name': 'Guest', 'message': 'fff'}, [('Guest', 'fff')], <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56538)>) {} вызвана из функции main
+2023-06-14 11:34:50,626   INFO       server Подключился клиент с адресом ('127.0.0.1', 56539)
+2023-06-14 11:34:50,627   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686731690.626583, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56539)>) {} вызвана из функции main
+2023-06-14 11:34:51,629   INFO       server Клиент ('127.0.0.1', 56539) отключился от сервера.
+2023-06-14 11:36:12,377   INFO       server Подключился клиент с адресом ('127.0.0.1', 56540)
+2023-06-14 11:36:12,378   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686731772.3776672, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56540)>) {} вызвана из функции main
+2023-06-14 11:36:13,380   INFO       server Клиент ('127.0.0.1', 56540) отключился от сервера.
+2023-06-14 11:37:08,910   INFO       server Подключился клиент с адресом ('127.0.0.1', 56541)
+2023-06-14 11:37:08,911   DEBUG      server Функция process_client_message с аргументами ({'action': 'presence', 'time': 1686731828.910464, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56541)>) {} вызвана из функции main
+2023-06-14 11:37:09,912   INFO       server Клиент ('127.0.0.1', 56541) отключился от сервера.
+2023-06-14 11:40:14,179   INFO       server Подключился клиент с адресом ('127.0.0.1', 56545)
+2023-06-14 11:40:15,182   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686732014.179513, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56545)>) {} вызвана из функции main
+2023-06-14 11:41:35,264   INFO       server Клиент ('127.0.0.1', 56545) отключился от сервера.
