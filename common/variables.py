@@ -22,6 +22,7 @@ MESSAGE = 'msg'
 TEXT_MESSAGE = 'message'
 SENDER = 'from'
 DESTINATION = 'to'
+EXIT = 'exit'
 
 
 # Прочие ключи, используемые в протоколе
