@@ -4,12 +4,12 @@ import json
 from common.variables import MAX_PACKAGE_LENGTH, ENCODING
 
 def get_message(client):
-    '''
+    """
     Утилита приёма и декодирования сообщения
     принимает байты выдаёт словарь, если приняточто-то другое отдаёт ошибку значения
     :param client:
     :return:
-    '''
+    """
 
     encoded_response = client.recv(MAX_PACKAGE_LENGTH)
     if isinstance(encoded_response, bytes):

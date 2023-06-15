@@ -73,3 +73,38 @@ DEBUG      2023-06-02 20:32:38,985 client.py Принят ответ от сер
 2023-06-06 21:41:47,920   DEBUG      client Функция create_presence с аргументами () {} вызвана из функции main
 2023-06-06 21:41:47,922   DEBUG      client Функция process_ans с аргументами ({'response': 200},) {} вызвана из функции main
 2023-06-06 21:41:47,922   DEBUG      client Принят ответ от сервера: 200 : OK
+2023-06-14 11:09:32,654   INFO       client Запущен клиент с параметрами порт:7777 адрес:127.0.0.1статус: listen
+2023-06-14 11:09:32,669   DEBUG      client Функция create_presence с аргументами () {} вызвана из функции main
+2023-06-14 11:09:33,661   DEBUG      client Функция process_ans с аргументами ({'response': 200},) {} вызвана из функции main
+2023-06-14 11:09:33,661   DEBUG      client Принят ответ от сервера: 200 : OK
+2023-06-14 11:26:03,866   INFO       client Запущен клиент с параметрами порт:7777 адрес:127.0.0.1статус: listen
+2023-06-14 11:26:03,879   DEBUG      client Функция create_presence с аргументами () {} вызвана из функции main
+2023-06-14 11:26:04,869   DEBUG      client Функция process_ans с аргументами ({'response': 200},) {} вызвана из функции main
+2023-06-14 11:26:04,869   DEBUG      client Принят ответ от сервера: 200 : OK
+2023-06-14 11:29:07,875   INFO       client Запущен клиент с параметрами порт:7777 адрес:127.0.0.1статус: write
+2023-06-14 11:29:07,889   DEBUG      client Функция create_presence с аргументами () {} вызвана из функции main
+2023-06-14 11:29:08,879   DEBUG      client Функция process_ans с аргументами ({'response': 200},) {} вызвана из функции main
+2023-06-14 11:29:08,879   DEBUG      client Принят ответ от сервера: 200 : OK
+2023-06-14 11:29:22,675   DEBUG      client Функция create_message с аргументами (<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56518), raddr=('127.0.0.1', 7777)>,) {} вызвана из функции main
+2023-06-14 11:33:13,095   INFO       client Запущен клиент с параметрами порт:7777 адрес:127.0.0.1статус: listen
+2023-06-14 11:33:13,095   ERROR      client Не удалось подключиться к серверу 127.0.0.1:7777
+2023-06-14 11:33:26,284   INFO       client Запущен клиент с параметрами порт:7777 адрес:127.0.0.1статус: listen
+2023-06-14 11:33:26,295   DEBUG      client Функция create_presence с аргументами () {} вызвана из функции main
+2023-06-14 11:33:27,286   DEBUG      client Функция process_ans с аргументами ({'response': 200},) {} вызвана из функции main
+2023-06-14 11:33:27,287   DEBUG      client Принят ответ от сервера: 200 : OK
+2023-06-14 11:33:40,915   INFO       client Запущен клиент с параметрами порт:7777 адрес:127.0.0.1статус: write
+2023-06-14 11:33:40,926   DEBUG      client Функция create_presence с аргументами () {} вызвана из функции main
+2023-06-14 11:33:41,917   DEBUG      client Функция process_ans с аргументами ({'response': 200},) {} вызвана из функции main
+2023-06-14 11:33:41,917   DEBUG      client Принят ответ от сервера: 200 : OK
+2023-06-14 11:33:48,242   DEBUG      client Функция create_message с аргументами (<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56538), raddr=('127.0.0.1', 7777)>,) {} вызвана из функции main
+2023-06-14 11:33:48,926   INFO       client Получено сообщение от пользователя Guest:
+hello
+2023-06-14 11:33:48,927   DEBUG      client Функция message_from_server с аргументами ({'action': 'msg', 'sender': 'Guest', 'time': 1686731628.926093, 'message': 'hello'},) {} вызвана из функции main
+2023-06-14 11:34:30,468   DEBUG      client Функция create_message с аргументами (<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56538), raddr=('127.0.0.1', 7777)>,) {} вызвана из функции main
+2023-06-14 11:34:30,973   INFO       client Получено сообщение от пользователя Guest:
+fff
+2023-06-14 11:34:30,973   DEBUG      client Функция message_from_server с аргументами ({'action': 'msg', 'sender': 'Guest', 'time': 1686731670.972665, 'message': 'fff'},) {} вызвана из функции main
+2023-06-14 11:40:14,178   INFO       client Запущен клиент с параметрами порт:7777 адрес:127.0.0.1статус: listen
+2023-06-14 11:40:14,194   DEBUG      client Функция create_presence с аргументами () {} вызвана из функции main
+2023-06-14 11:40:15,182   DEBUG      client Функция process_ans с аргументами ({'response': 200},) {} вызвана из функции main
+2023-06-14 11:40:15,182   DEBUG      client Принят ответ от сервера: 200 : OK

@@ -1,0 +1,17 @@
+2023-06-06 21:15:21,432   DEBUG      decos Функция create_presence с аргументами () {} вызвана из функции log
+2023-06-06 21:24:10,166   INFO       server Подключился клиент с адресом ('127.0.0.1', 63442)
+2023-06-06 21:24:10,178   DEBUG      server От клиента получено сообщение {'action': 'presenc', 'time': 1686075850.166069, 'user': {'account_name': 'Guest'}}
+2023-06-06 21:24:10,193   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686075850.166069, 'user': {'account_name': 'Guest'}},) {} вызвана из функции main
+2023-06-06 21:24:10,193   DEBUG      server Ответ сервера {'response': 200}
+2023-06-06 21:29:45,723   INFO       server Подключился клиент с адресом ('127.0.0.1', 63526)
+2023-06-06 21:29:45,737   DEBUG      server От клиента получено сообщение {'action': 'presenc', 'time': 1686076185.722998, 'user': {'account_name': 'Guest'}}
+2023-06-06 21:29:45,737   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686076185.722998, 'user': {'account_name': 'Guest'}},) {} вызвана из функции main
+2023-06-06 21:29:45,737   DEBUG      server Ответ сервера {'response': 200}
+2023-06-06 21:31:22,541   INFO       server Подключился клиент с адресом ('127.0.0.1', 63535)
+2023-06-06 21:31:22,555   DEBUG      server От клиента получено сообщение {'action': 'presenc', 'time': 1686076282.5415108, 'user': {'account_name': 'Guest'}}
+2023-06-06 21:31:22,570   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686076282.5415108, 'user': {'account_name': 'Guest'}},) {} вызвана из функции main
+2023-06-06 21:31:22,570   DEBUG      server Ответ сервера {'response': 200}
+2023-06-06 21:41:47,904   INFO       server Подключился клиент с адресом ('127.0.0.1', 63552)
+2023-06-06 21:41:47,920   DEBUG      server От клиента получено сообщение {'action': 'presenc', 'time': 1686076907.903745, 'user': {'account_name': 'Guest'}}
+2023-06-06 21:41:47,921   DEBUG      server Функция process_client_message с аргументами ({'action': 'presenc', 'time': 1686076907.903745, 'user': {'account_name': 'Guest'}},) {} вызвана из функции main
+2023-06-06 21:41:47,921   DEBUG      server Ответ сервера {'response': 200}
