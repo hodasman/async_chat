@@ -7,7 +7,7 @@ import time
 from select import select
 
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
-    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, MESSAGE, TEXT_MESSAGE, SENDER, DEFAULT_IP_ADDRESS
+    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, MESSAGE, TEXT_MESSAGE, SENDER, DEFAULT_IP_ADDRESS, DESTINATION
 from common.utils import get_message, send_message
 import log.config_server_log
 from decos import log
@@ -16,26 +16,39 @@ SERVER_LOGGER = logging.getLogger('server')
 
 
 @log
-def process_client_message(message: dict, message_list: list, client):
+def process_client_message(message: dict, message_list: list, client, clients: list, names: dict):
     """
     Обработчик сообщений от клиентов, принимает словарь -
     сообщение от клинта, проверяет корректность,
-    отправляет словарь-ответ для клиента, cобирает все сообщения
-    в список
+    отправляет словарь-ответ для клиента, добавляет все сообщения клиентов
+    в список message_list, добавляет сокеты всех клиентов в список clients,
+    добавляет в словарь names пары имя клиента - сокет
 
     :param message:
     :param message_list:
     :param client:
+    :param clients:
+    :param names:
     :return:
     """
 
     if ACTION in message and message[ACTION] == PRESENCE and TIME in message \
-            and USER in message and message[USER][ACCOUNT_NAME] == 'Guest':
-        send_message(client, {RESPONSE: 200})
-        return {RESPONSE: 200}
+            and USER in message and message[USER][ACCOUNT_NAME]:
+        if message[USER][ACCOUNT_NAME] in names.keys():
+            send_message(client, {
+                RESPONSE: 400,
+                ERROR: 'Пользователь с таким именем уже существует'
+            })
+            clients.remove(client)
+            client.close()
+        else:
+            names[USER][ACCOUNT_NAME] = client
+            send_message(client, {RESPONSE: 200})
+        return
 
     elif ACTION in message and message[ACTION] == MESSAGE and TIME in message \
-            and TEXT_MESSAGE in message:
+            and TEXT_MESSAGE in message and DESTINATION in message\
+            and SENDER in message:
         message_list.append((message[ACCOUNT_NAME], message[TEXT_MESSAGE]))
         return
     else:
