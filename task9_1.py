@@ -11,7 +11,7 @@ import ipaddress
 import subprocess
 
 
-def host_ping(lst_ip_adress: list, timeout: float, count: int):
+def host_ping(lst_ip_adress: list, timeout=1.0, count=1):
     for host in lst_ip_adress:
         try:
             adress = ipaddress.ip_address(host)
