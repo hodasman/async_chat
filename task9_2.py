@@ -33,7 +33,6 @@ def host_range_ping(begin_ip_adress: str, count: int):
     return host_ping(host_list)
 
 
-
 if __name__ == "__main__":
     host_range_ping('192.168.100.20', 10)
 
