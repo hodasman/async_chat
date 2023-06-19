@@ -12,6 +12,7 @@ import subprocess
 
 
 def host_ping(lst_ip_adress: list, timeout=1.0, count=1):
+    result_dict = {'Reachable':[], 'Unreachable':[]}
     for host in lst_ip_adress:
         try:
             adress = ipaddress.ip_address(host)
@@ -22,10 +23,13 @@ def host_ping(lst_ip_adress: list, timeout=1.0, count=1):
         proc.wait()
         if proc.returncode == 0:
             print(f'{host} - узел доступен')
+            result_dict['Reachable'].append(host)
         else:
             print(f'{host} - узел не доступен')
+            result_dict['Unreachable'].append(host)
+    return result_dict
 
 
 if __name__ == "__main__":
     lst = ['192.168.100.1', 'yandex.ru', '2.2.2.2', '192.168.0.55']
-    host_ping(lst, 2.0, 1)
+    print(host_ping(lst, 2.0, 1))
