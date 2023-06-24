@@ -37,15 +37,15 @@ while True:
                     f'osascript -e \'tell application "Terminal" to do'
                     f' script "python3 {PATH_TO_SCRIPT_CLIENTS}"\'',
                     shell=True))
-            CLIENTS.append(
-                Popen(
-                    f'osascript -e \'tell application "Terminal" to do'
-                    f' script "python3 {PATH_TO_SCRIPT_CLIENTS} -n send"\'',
-                    shell=True))
+            # CLIENTS.append(
+            #     Popen(
+            #         f'osascript -e \'tell application "Terminal" to do'
+            #         f' script "python3 {PATH_TO_SCRIPT_CLIENTS} -n send"\'',
+            #         shell=True))
             # Задержка для того, что бы отправляющий процесс успел
             # зарегистрироваться на сервере, и потом в словаре имен
             # клиентов остался только слушающий клиент
-            time.sleep(0.5)
+            time.sleep(1)
     elif CHOICE == '4':
         pass
         # for i in range(len(CLIENTS)):

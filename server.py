@@ -6,6 +6,7 @@ import json
 import time
 from select import select
 
+from metaclasses import ServerMaker
 from descript import Port
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
     PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, MESSAGE, TEXT_MESSAGE, SENDER, DEFAULT_IP_ADDRESS, DESTINATION, EXIT
@@ -28,7 +29,7 @@ def arg_parser():
     return listen_address, listen_port
 
 
-class Server:
+class Server(metaclass=ServerMaker):
     listen_port = Port()
 
     def __init__(self, listen_address, listen_port):

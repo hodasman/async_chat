@@ -5,6 +5,8 @@ import json
 import socket
 import threading
 import time
+
+from metaclasses import ClientMaker
 from common.variables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
     RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT, MESSAGE, TEXT_MESSAGE, SENDER, DESTINATION, EXIT
 from common.utils import get_message, send_message
@@ -61,7 +63,7 @@ def process_ans(message):
     raise ValueError
 
 # Класс формировки и отправки сообщений на сервер и взаимодействия с пользователем.
-class ClientSender(threading.Thread):
+class ClientSender(threading.Thread, metaclass=ClientMaker):
     def __init__(self, account_name, sock):
         self.account_name = account_name
         self.sock = sock
@@ -125,7 +127,7 @@ class ClientSender(threading.Thread):
 
 
 # Класс-приёмник сообщений с сервера. Принимает сообщения, выводит в консоль.
-class ClientReader(threading.Thread ):
+class ClientReader(threading.Thread, metaclass=ClientMaker):
     def __init__(self, account_name, sock):
         self.account_name = account_name
         self.sock = sock
