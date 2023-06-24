@@ -6,6 +6,7 @@ import json
 import time
 from select import select
 
+from descript import Port
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
     PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, MESSAGE, TEXT_MESSAGE, SENDER, DEFAULT_IP_ADDRESS, DESTINATION, EXIT
 from common.utils import get_message, send_message
@@ -27,7 +28,9 @@ def arg_parser():
     return listen_address, listen_port
 
 
-class Server():
+class Server:
+    listen_port = Port()
+
     def __init__(self, listen_address, listen_port):
         self.listen_port = listen_port
         self.listen_address = listen_address
