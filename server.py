@@ -53,40 +53,42 @@ class Server(metaclass=ServerMaker):
 
     def process_client_message(self, message, client):
         #Если сообщение о присутствии
-        if ACTION in message and message[ACTION] == PRESENCE and TIME in message \
-                and USER in message and message[USER][ACCOUNT_NAME]:
-            if message[USER][ACCOUNT_NAME] in self.names.keys():
-                send_message(client, {
-                    RESPONSE: 400,
-                    ERROR: 'Пользователь с таким именем уже существует'
-                })
-                self.clients.remove(client)
-                client.close()
-            else:
-                #Если пользователя нет в словаре names то добавляем
+        if ACTION in message and message[ACTION] == PRESENCE and TIME in message and USER in message:
+            # Если такой пользователь ещё не зарегистрирован, регистрируем, иначе отправляем ответ и завершаем соединение.
+            if message[USER][ACCOUNT_NAME] not in self.names.keys():
                 self.names[message[USER][ACCOUNT_NAME]] = client
                 client_ip, client_port = client.getpeername()
                 self.database.user_login(message[USER][ACCOUNT_NAME], client_ip, client_port)
                 send_message(client, {RESPONSE: 200})
+            else:
+                response = {
+                    RESPONSE: 400,
+                    ERROR: 'Пользователь с таким именем уже существует'
+                            }
+                response[ERROR] = 'Имя пользователя уже занято.'
+                send_message(client, response)
+                self.clients.remove(client)
+                client.close()
             return
-        # Если обычное сообщение
-        elif ACTION in message and message[ACTION] == MESSAGE and TIME in message \
-                and TEXT_MESSAGE in message and DESTINATION in message \
-                and SENDER in message:
+            # Если это сообщение, то добавляем его в очередь сообщений. Ответ не требуется.
+        elif ACTION in message and message[ACTION] == MESSAGE and DESTINATION in message and TIME in message \
+                and SENDER in message and TEXT_MESSAGE in message:
             self.messages.append(message)
             return
             # Если клиент выходит
         elif ACTION in message and message[ACTION] == EXIT and ACCOUNT_NAME in message:
             self.database.user_logout(message[ACCOUNT_NAME])
-            self.clients.remove(self.names[ACCOUNT_NAME])
-            self.names[ACCOUNT_NAME].close()
-            del self.names[ACCOUNT_NAME]
+            self.clients.remove(self.names[message[ACCOUNT_NAME]])
+            self.names[message[ACCOUNT_NAME]].close()
+            del self.names[message[ACCOUNT_NAME]]
             return
+            # Иначе отдаём Bad request
         else:
-            send_message(client, {
-                RESPONSE: 400,
-                ERROR: 'Bad Request'
-            })
+            response = {
+                    RESPONSE: 400,
+                    ERROR: 'Пользователь с таким именем уже существует'
+                            }
+            send_message(client, response)
             return
 
     def process_message(self, message, listen_socks):

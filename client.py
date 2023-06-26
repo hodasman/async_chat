@@ -13,7 +13,6 @@ from common.utils import get_message, send_message
 import log.config_client_log
 from decos import log
 
-
 CLIENT_LOGGER = logging.getLogger('client')
 
 
@@ -41,7 +40,6 @@ def arg_parser():
 
 @log
 def create_presence(account_name='Guest'):
-
     out = {
         ACTION: PRESENCE,
         TIME: time.time(),
@@ -55,12 +53,13 @@ def create_presence(account_name='Guest'):
 
 @log
 def process_ans(message):
-
     if RESPONSE in message:
         if message[RESPONSE] == 200:
             return '200 : OK'
         return f'400 : {message[ERROR]}'
+
     raise ValueError
+
 
 # Класс формировки и отправки сообщений на сервер и взаимодействия с пользователем.
 class ClientSender(threading.Thread, metaclass=ClientMaker):
@@ -141,7 +140,8 @@ class ClientReader(threading.Thread, metaclass=ClientMaker):
                 if ACTION in message and message[ACTION] == MESSAGE and SENDER in message and DESTINATION in message \
                         and TEXT_MESSAGE in message and message[DESTINATION] == self.account_name:
                     print(f'\nПолучено сообщение от пользователя {message[SENDER]}:\n{message[TEXT_MESSAGE]}')
-                    CLIENT_LOGGER.info(f'Получено сообщение от пользователя {message[SENDER]}:\n{message[TEXT_MESSAGE]}')
+                    CLIENT_LOGGER.info(
+                        f'Получено сообщение от пользователя {message[SENDER]}:\n{message[TEXT_MESSAGE]}')
                 else:
                     CLIENT_LOGGER.error(f'Получено некорректное сообщение с сервера: {message}')
             except json.JSONDecodeError:
@@ -172,6 +172,8 @@ def main():
         answer = process_ans(get_message(transport))
         CLIENT_LOGGER.debug(f'Принят ответ от сервера: {answer}')
         print(answer)
+        if answer[:3] == '400':
+            main()
     except json.JSONDecodeError:
         CLIENT_LOGGER.error(f'Не удалось декодировать сообщение сервера.')
         sys.exit(1)
@@ -200,6 +202,7 @@ def main():
             if module_reciver.is_alive() and module_sender.is_alive():
                 continue
             break
+
 
 if __name__ == '__main__':
     main()
