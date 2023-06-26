@@ -6,6 +6,7 @@ import json
 import time
 from select import select
 
+from server_database import ServerStorage
 from metaclasses import ServerMaker
 from descript import Port
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
@@ -32,9 +33,10 @@ def arg_parser():
 class Server(metaclass=ServerMaker):
     listen_port = Port()
 
-    def __init__(self, listen_address, listen_port):
+    def __init__(self, listen_address, listen_port, database):
         self.listen_port = listen_port
         self.listen_address = listen_address
+        self.database = database
         self.clients = []  # Список всех подключившихся клиентов
         self.messages = []  # Список сообщений от клиентов
         self.names = dict()  # Словарь, содержащий имена пользователей и соответствующие им сокеты.
@@ -63,6 +65,8 @@ class Server(metaclass=ServerMaker):
             else:
                 #Если пользователя нет в словаре names то добавляем
                 self.names[message[USER][ACCOUNT_NAME]] = client
+                client_ip, client_port = client.getpeername()
+                self.database.user_login(message[USER][ACCOUNT_NAME], client_ip, client_port)
                 send_message(client, {RESPONSE: 200})
             return
         # Если обычное сообщение
@@ -73,6 +77,7 @@ class Server(metaclass=ServerMaker):
             return
             # Если клиент выходит
         elif ACTION in message and message[ACTION] == EXIT and ACCOUNT_NAME in message:
+            self.database.user_logout(message[ACCOUNT_NAME])
             self.clients.remove(self.names[ACCOUNT_NAME])
             self.names[ACCOUNT_NAME].close()
             del self.names[ACCOUNT_NAME]
@@ -140,9 +145,10 @@ class Server(metaclass=ServerMaker):
 def main():
     # Загрузка параметров командной строки, если нет параметров, то задаём значения по умоланию.
     listen_address, listen_port = arg_parser()
-
+    # Создание экземпляра класса базы данных
+    database = ServerStorage()
     # Создание экземпляра класса - сервера.
-    server = Server(listen_address, listen_port)
+    server = Server(listen_address, listen_port, database)
     server.main_loop()
 
 if __name__ == '__main__':
