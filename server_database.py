@@ -87,3 +87,37 @@ class ServerStorage:
         user = self.session.query(self.AllUsers).filter_by(name=username).first()
         self.session.query(self.ActiveUsers).filter_by(user=user.id).delete()
         self.session.commit()
+
+    # Функция возвращает список известных пользователей со временем последнего входа.
+    def users_list(self):
+        query = self.session.query(
+            self.AllUsers.name,
+            self.AllUsers.last_login,
+        )
+        # Возвращаем список кортежей
+        return query.all()
+
+    # Функция возвращает список активных пользователей
+    def active_users_list(self):
+        # Запрашиваем соединение таблиц и собираем кортежи имя, адрес, порт, время.
+        query = self.session.query(
+            self.AllUsers.name,
+            self.ActiveUsers.ip_address,
+            self.ActiveUsers.port,
+            self.ActiveUsers.login_time
+        ).join(self.AllUsers)
+        # Возвращаем список кортежей
+        return query.all()
+
+    # Функция возвращающая историю входов по пользователю или всем пользователям
+    def login_history(self, username=None):
+        # Запрашиваем историю входа
+        query = self.session.query(self.AllUsers.name,
+                                   self.LoginHistory.date_time,
+                                   self.LoginHistory.ip,
+                                   self.LoginHistory.port
+                                   ).join(self.AllUsers)
+        # Если было указано имя пользователя, то фильтруем по нему
+        if username:
+            query = query.filter(self.AllUsers.name == username)
+        return query.all()
