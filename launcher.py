@@ -5,7 +5,7 @@ from subprocess import Popen
 CHOICE_TEXT = """
 1 - запуск сервера
 2 - остановка сервера
-3 - запуск 4 клиентов
+3 - запуск 2 клиентов
 4 - остановка клиентов
 5 - остановить все и выйти
 Выберите действие: """
@@ -47,10 +47,10 @@ while True:
             # клиентов остался только слушающий клиент
             time.sleep(1)
     elif CHOICE == '4':
-        pass
-        # for i in range(len(CLIENTS)):
-        #     print(CLIENTS[i])
-        #     CLIENTS[i].kill()
+        # pass
+        for i in range(len(CLIENTS)):
+            print(CLIENTS[i])
+            CLIENTS[i].kill()
     elif CHOICE == '5':
         break
         # for i in range(len(CLIENTS)):
