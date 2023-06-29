@@ -1,19 +1,26 @@
 import argparse
+import configparser
 import logging
 import socket
 import sys
 import json
+import threading
 import time
 from select import select
 
 from server_database import ServerStorage
 from metaclasses import ServerMaker
 from descript import Port
-from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
-    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, MESSAGE, TEXT_MESSAGE, SENDER, DEFAULT_IP_ADDRESS, DESTINATION, EXIT
+from common.variables import *
 from common.utils import get_message, send_message
 import log.config_server_log
 from decos import log
+
+
+# Флаг что был подключён новый пользователь, нужен чтобы не мучать BD
+# постоянными запросами на обновление
+new_connection = False
+conflag_lock = threading.Lock()
 
 SERVER_LOGGER = logging.getLogger('server')
 
@@ -23,14 +30,14 @@ SERVER_LOGGER = logging.getLogger('server')
 def arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', default=DEFAULT_PORT, type=int, nargs='?')
-    parser.add_argument('-a', default='', nargs='?')
+    parser.add_argument('-a', default=DEFAULT_IP_ADDRESS, nargs='?')
     namespace = parser.parse_args(sys.argv[1:])
     listen_address = namespace.a
     listen_port = namespace.p
     return listen_address, listen_port
 
 
-class Server(metaclass=ServerMaker):
+class Server(threading.Thread, metaclass=ServerMaker):
     listen_port = Port()
 
     def __init__(self, listen_address, listen_port, database):
@@ -40,6 +47,7 @@ class Server(metaclass=ServerMaker):
         self.clients = []  # Список всех подключившихся клиентов
         self.messages = []  # Список сообщений от клиентов
         self.names = dict()  # Словарь, содержащий имена пользователей и соответствующие им сокеты.
+        super().__init__()
 
     def init_socket(self):
         SERVER_LOGGER.info(
@@ -52,6 +60,8 @@ class Server(metaclass=ServerMaker):
         self.sock.listen()
 
     def process_client_message(self, message, client):
+        global new_connection
+
         #Если сообщение о присутствии
         if ACTION in message and message[ACTION] == PRESENCE and TIME in message and USER in message:
             # Если такой пользователь ещё не зарегистрирован, регистрируем, иначе отправляем ответ и завершаем соединение.
@@ -59,12 +69,9 @@ class Server(metaclass=ServerMaker):
                 self.names[message[USER][ACCOUNT_NAME]] = client
                 client_ip, client_port = client.getpeername()
                 self.database.user_login(message[USER][ACCOUNT_NAME], client_ip, client_port)
-                send_message(client, {RESPONSE: 200})
+                send_message(client, RESPONSE_200)
             else:
-                response = {
-                    RESPONSE: 400,
-                    ERROR: 'Пользователь с таким именем уже существует'
-                            }
+                response = RESPONSE_400
                 response[ERROR] = 'Имя пользователя уже занято.'
                 send_message(client, response)
                 self.clients.remove(client)
@@ -72,22 +79,53 @@ class Server(metaclass=ServerMaker):
             return
             # Если это сообщение, то добавляем его в очередь сообщений. Ответ не требуется.
         elif ACTION in message and message[ACTION] == MESSAGE and DESTINATION in message and TIME in message \
-                and SENDER in message and TEXT_MESSAGE in message:
+                and SENDER in message and TEXT_MESSAGE in message and self.names[message[SENDER]] == client:
             self.messages.append(message)
+            self.database.process_message(message[SENDER], message[DESTINATION])
             return
             # Если клиент выходит
-        elif ACTION in message and message[ACTION] == EXIT and ACCOUNT_NAME in message:
+        elif ACTION in message and message[ACTION] == EXIT and ACCOUNT_NAME in message \
+                and self.names[message[ACCOUNT_NAME]] == client:
             self.database.user_logout(message[ACCOUNT_NAME])
+            SERVER_LOGGER.info(
+                f'Клиент {message[ACCOUNT_NAME]} корректно отключился от сервера.')
             self.clients.remove(self.names[message[ACCOUNT_NAME]])
             self.names[message[ACCOUNT_NAME]].close()
             del self.names[message[ACCOUNT_NAME]]
+            with conflag_lock:
+                new_connection = True
             return
-            # Иначе отдаём Bad request
+
+            # Если это запрос контакт-листа
+        elif ACTION in message and message[ACTION] == GET_CONTACTS and USER in message and \
+                 self.names[message[USER]] == client:
+            response = RESPONSE_202
+            response[LIST_INFO] = self.database.get_contacts(message[USER])
+            send_message(client, response)
+
+        # Если это добавление контакта
+        elif ACTION in message and message[ACTION] == ADD_CONTACT and ACCOUNT_NAME in message and USER in message \
+                and self.names[message[USER]] == client:
+            self.database.add_contact(message[USER], message[ACCOUNT_NAME])
+            send_message(client, RESPONSE_200)
+
+        # Если это удаление контакта
+        elif ACTION in message and message[ACTION] == REMOVE_CONTACT and ACCOUNT_NAME in message and USER in message \
+                and self.names[message[USER]] == client:
+            self.database.remove_contact(message[USER], message[ACCOUNT_NAME])
+            send_message(client, RESPONSE_200)
+
+        # Если это запрос известных пользователей
+        elif ACTION in message and message[ACTION] == USERS_REQUEST and ACCOUNT_NAME in message \
+                and self.names[message[ACCOUNT_NAME]] == client:
+            response = RESPONSE_202
+            response[LIST_INFO] = [user[0]
+                                   for user in self.database.users_list()]
+            send_message(client, response)
+        # Иначе отдаём Bad request
         else:
-            response = {
-                    RESPONSE: 400,
-                    ERROR: 'Пользователь с таким именем уже существует'
-                            }
+            response = RESPONSE_400
+            response[ERROR] = 'Запрос некорректен.'
             send_message(client, response)
             return
 
@@ -103,7 +141,7 @@ class Server(metaclass=ServerMaker):
                 f'Пользователь {message[DESTINATION]} не зарегистрирован на сервере, '
                 f'отправка сообщения невозможна.')
 
-    def main_loop(self):
+    def run(self):
         # Инициализация Сокета
         self.init_socket()
 
@@ -133,6 +171,11 @@ class Server(metaclass=ServerMaker):
 
                         SERVER_LOGGER.info(f'Клиент {client_with_message.getpeername()} '
                                            f'отключился от сервера.{e}')
+                        for name in self.names:
+                            if self.names[name] == client_with_message:
+                                self.database.user_logout(name)
+                                del self.names[name]
+                                break
                         self.clients.remove(client_with_message)
 
             for i in self.messages:
@@ -141,17 +184,20 @@ class Server(metaclass=ServerMaker):
                 except Exception:
                     SERVER_LOGGER.info(f'Связь с клиентом с именем {i[DESTINATION]} была потеряна')
                     self.clients.remove(self.names[i[DESTINATION]])
+                    self.database.user_logout(i[DESTINATION])
                     del self.names[i[DESTINATION]]
             self.messages.clear()
 
 def main():
+
     # Загрузка параметров командной строки, если нет параметров, то задаём значения по умоланию.
     listen_address, listen_port = arg_parser()
     # Создание экземпляра класса базы данных
     database = ServerStorage()
     # Создание экземпляра класса - сервера.
     server = Server(listen_address, listen_port, database)
-    server.main_loop()
+    server.daemon = True
+    server.start()
 
 if __name__ == '__main__':
     main()
