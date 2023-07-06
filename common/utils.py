@@ -1,10 +1,9 @@
-# from common.variables import *
-# from errors import IncorrectDataRecivedError, NonDictInputError
+
 import json
 import sys
 
-from common.variables import MAX_PACKAGE_LENGTH, ENCODING
-from errors import IncorrectDataRecivedError, NonDictInputError
+from .variables import *
+from .errors import IncorrectDataRecivedError, NonDictInputError
 
 sys.path.append('../')
 from Acync_chat.decos import log

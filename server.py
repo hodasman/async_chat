@@ -216,7 +216,7 @@ def main():
 
     # Создание экземпляра класса - сервера и его запуск:
     server = Server(listen_address, listen_port, database)
-    server.daemon = False
+    server.daemon = True
     server.start()
 
     # Создаём графическое окуружение для сервера:
