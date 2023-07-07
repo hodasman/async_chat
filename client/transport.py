@@ -55,24 +55,38 @@ class ClientTransport(threading.Thread, QObject):
     def connection_init(self, port, ip):
 
         self.transport = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.transport.settimeout(2)
+        self.transport.settimeout(5)
+        # Соединяемся, 5 попыток соединения, флаг успеха ставим в True если удалось
+        connected = False
+        for i in range(5):
+            CLIENT_LOGGER.info(f'Попытка подключения №{i + 1}')
+            try:
+                self.transport.connect((ip, port))
+            except (OSError, ConnectionRefusedError):
+                pass
+            else:
+                connected = True
+                break
+            time.sleep(1)
+
+        # Если соединится не удалось - исключение
+        if not connected:
+            CLIENT_LOGGER.critical('Не удалось установить соединение с сервером')
+            raise ServerError('Не удалось установить соединение с сервером')
+
+        CLIENT_LOGGER.debug('Установлено соединение с сервером')
+
+        # Посылаем серверу приветственное сообщение и получаем ответ что всё нормально или ловим исключение.
         try:
-            self.transport.connect((ip, port))
             with socket_lock:
-                message_to_server = self.create_presence()
-                send_message(self.transport, message_to_server)
+                send_message(self.transport, self.create_presence())
+                self.process_server_ans(get_message(self.transport))
+        except (OSError, json.JSONDecodeError):
+            CLIENT_LOGGER.critical('Потеряно соединение с сервером!')
+            raise ServerError('Потеряно соединение с сервером!')
 
-            self.process_server_ans(get_message(self.transport))
-
-        except json.JSONDecodeError:
-            CLIENT_LOGGER.error(f'Не удалось декодировать сообщение сервера.')
-            sys.exit(1)
-        except ServerError as error:
-            CLIENT_LOGGER.error(f'При установке соединения сервер вернул ошибку: {error.text}')
-            exit(1)
-        except (ConnectionRefusedError, ConnectionError):
-            CLIENT_LOGGER.error(f'Не удалось подключиться к серверу {ip}:{port}')
-            sys.exit(1)
+        # Раз всё хорошо, сообщение о установке соединения.
+        CLIENT_LOGGER.info('Соединение с сервером успешно установлено.')
 
     def create_presence(self):
         out = {
