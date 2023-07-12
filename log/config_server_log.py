@@ -2,9 +2,11 @@ import logging
 import logging.handlers
 import os
 import sys
-from common.variables import LOGGING_LEVEL
+
 
 # создаем форматтер
+from common.variables import LOGGING_LEVEL
+
 SERVER_FORMATTER = logging.Formatter("%(asctime)-25s %(levelname)-10s %(module)s %(message)s")
 
 # Обработчик для вывода сообщений в поток
