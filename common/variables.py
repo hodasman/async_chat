@@ -23,6 +23,8 @@ TEXT_MESSAGE = 'message'
 SENDER = 'from'
 DESTINATION = 'to'
 EXIT = 'exit'
+DATA = 'bin'
+PUBLIC_KEY = 'pubkey'
 
 
 # Прочие ключи, используемые в протоколе
@@ -34,6 +36,7 @@ LIST_INFO = 'data_list'
 REMOVE_CONTACT = 'remove'
 ADD_CONTACT = 'add'
 USERS_REQUEST = 'get_users'
+PUBLIC_KEY_REQUEST = 'pubkey_need'
 
 # уровень логирования событий
 LOGGING_LEVEL = logging.DEBUG
@@ -50,3 +53,14 @@ RESPONSE_400 = {
             RESPONSE: 400,
             ERROR: None
         }
+
+# 205
+RESPONSE_205 = {
+    RESPONSE: 205
+}
+
+# 511
+RESPONSE_511 = {
+    RESPONSE: 511,
+    DATA: None
+}
