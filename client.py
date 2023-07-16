@@ -12,7 +12,7 @@ from common.errors import ServerError
 
 from common.variables import *
 from decos import log
-from Acync_chat.client.client_database import ClientDatabase
+from client.client_database import ClientDatabase
 
 CLIENT_LOGGER = logging.getLogger('client')
 

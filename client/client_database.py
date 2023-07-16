@@ -3,7 +3,7 @@ import sys
 
 from sqlalchemy import create_engine, Table, Column, Integer, String, Text, MetaData, DateTime
 from sqlalchemy.orm import mapper, sessionmaker
-# from Acync_chat.common import *
+# from common import *
 import datetime
 
 

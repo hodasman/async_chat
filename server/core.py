@@ -6,11 +6,11 @@ import json
 import hmac
 import binascii
 import os
-from Acync_chat.common.variables import *
-from Acync_chat.common.utils import send_message, get_message
-from Acync_chat.decos import login_required
+from common.variables import *
+from common.utils import send_message, get_message
+from decos import login_required
 
-from Acync_chat.descript import Port
+from descript import Port
 
 # Загрузка логера
 
