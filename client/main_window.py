@@ -1,4 +1,4 @@
-from Acync_chat.common.errors import ServerError
+from common.errors import ServerError
 from .start_dialog import UserNameDialog
 from .transport import ClientTransport
 from .client_database import ClientDatabase

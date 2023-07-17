@@ -1,7 +1,7 @@
 import logging
 import os
 import sys
-from Acync_chat.common.variables import LOGGING_LEVEL
+from common.variables import LOGGING_LEVEL
 
 #Создаем форматтер для сообщений
 CLIENT_FORMATTER = logging.Formatter("%(asctime)-25s %(levelname)-10s %(module)s %(message)s")

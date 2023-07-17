@@ -10,9 +10,9 @@ import time
 
 from PyQt5.QtCore import pyqtSignal, QObject
 
-from Acync_chat.common.errors import ServerError
-from Acync_chat.common.utils import get_message, send_message
-from Acync_chat.common.variables import *
+from common.errors import ServerError
+from common.utils import get_message, send_message
+from common.variables import *
 
 CLIENT_LOGGER = logging.getLogger('client')
 

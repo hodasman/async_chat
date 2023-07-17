@@ -11,8 +11,8 @@ from client.transport import ClientTransport
 from common.errors import ServerError
 
 from common.variables import *
-from decos import log
-from Acync_chat.client.client_database import ClientDatabase
+from common.decos import log
+from client.client_database import ClientDatabase
 
 CLIENT_LOGGER = logging.getLogger('client')
 
