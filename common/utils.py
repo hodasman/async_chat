@@ -6,7 +6,7 @@ from .variables import *
 from .errors import IncorrectDataRecivedError, NonDictInputError
 
 sys.path.append('../')
-from decos import log
+from common.decos import log
 
 
 # Утилита приёма и декодирования сообщения

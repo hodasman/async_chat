@@ -8,9 +8,9 @@ import binascii
 import os
 from common.variables import *
 from common.utils import send_message, get_message
-from decos import login_required
+from common.decos import login_required
 
-from descript import Port
+from common.descript import Port
 
 # Загрузка логера
 

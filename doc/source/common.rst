@@ -9,10 +9,10 @@ Common package
 .. automodule:: common.decos
 	:members:
 
-Скрипт descryptors.py
+Скрипт descript.py
 ---------------------
 
-.. autoclass:: common.descryptors.Port
+.. autoclass:: common.descript.Port
     :members:
 
 Скрипт errors.py
