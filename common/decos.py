@@ -19,7 +19,7 @@ def log(func):
         """Обертка"""
         result = func(*args, **kwargs)
         LOGGER.debug(f'Функция {func.__name__} с аргументами {args} {kwargs} вызвана из функции '
-                     f'{inspect.stack()[1][3]}', stacklevel=2)
+                     f'{inspect.stack()[1][3]}')
         return result
     return safe_log
 
